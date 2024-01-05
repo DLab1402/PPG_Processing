@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from numpy import ndarray
 
 class dataLoad:
     #Private atribute
@@ -101,7 +102,16 @@ class datLoDe(dataLoad):
             for col in dataframe1.iter_cols(1, dataframe1.max_column):
                 tem.append(col[row].value)
             value.append(tem)
-        return value    
+        return value
+    
+    def json_read(self, file_path, type="numpy") -> ndarray:
+        import json
+
+        # Read the JSON file content
+        with open(file_path, 'r') as json_file:
+            json_data = json.load(json_file)
+        
+        return json_data
         
 
     
@@ -109,3 +119,24 @@ class datLoDe(dataLoad):
 # a = datLoDe("D:/my data/Medical_data/04_08_23_Long")
 # b = a.throwDatPack()
 # print(b)
+
+#matlab read
+# data = {};
+# count = 0;
+# for i = 1:length(tem)
+#     n = floor(length(tem{i})/1000);
+#     if n>0
+#         for j = 1:n
+#             count = count +1;
+#             r = tem{i};
+#             data{count} = r(1000*(j-1)+1:1000*j);
+#         end
+#     end
+# end
+
+# % Write JSON string to a file
+# jsonString = jsonencode(data);
+# jsonFilename = 'output_file.json';
+# fid = fopen(jsonFilename, 'w');
+# fprintf(fid, jsonString);
+# fclose(fid);

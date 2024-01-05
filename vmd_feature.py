@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert
 import seaborn as sns
+import os
 import scipy.sparse as sp
 
 # -*- coding: utf-8 -*-
@@ -190,6 +191,7 @@ class vmdFea:
         else:
             pass
         L = len(sig)
+
         start = np.round(L*t_cut).astype(np.int64)
         end = np.round(L*(1-t_cut)).astype(np.int64)
         seg = range(end-start+1)
@@ -197,8 +199,8 @@ class vmdFea:
         inse = np.abs(z)
         insp = np.unwrap(np.angle(z))
         insf = np.gradient(insp)[1]*self.fs/(2*np.pi)
-        inse = inse[:,seg].flatten()
-        insf = insf[:,seg].flatten()
+        inse = inse[:,seg+start].flatten()
+        insf = insf[:,seg+start].flatten()
         time = np.tile(seg,self.K)
         
         #Frequency limit
@@ -223,20 +225,3 @@ class vmdFea:
         plt.show()
 
         return H
-
-    # def wPack_Process(self):
-
-
-from dataLoad import datLoDe    
-
-da = datLoDe("D:/New_era/my _data/medical_data/7_8_23_Trung_Tin/PO80/13047344_1352_wave.csv")
-pack = da.throwDatPack()
-flattened_array = [item for sublist in pack for item in sublist]
-sig = np.array(flattened_array)
-a = vmdFea(sig,60)
-print(len(sig))
-inse= a.sigle_process(sig[0:256],0,5,selec_method = "FreRa",ReS = 30)
-# print(inse)
-# print(inse.shape)
-# plt.plot(sig)a
-# plt.show()
