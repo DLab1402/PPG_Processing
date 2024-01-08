@@ -225,3 +225,6 @@ class vmdFea:
         plt.show()
 
         return H
+    
+#Test script
+    

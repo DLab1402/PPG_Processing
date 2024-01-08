@@ -1,9 +1,7 @@
 import torch
-import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import seaborn as sns
 class Net(nn.Module):
   def __init__(self):
     super(Net, self).__init__()
@@ -11,7 +9,7 @@ class Net(nn.Module):
     self.bn = nn.BatchNorm2d(0)
     self.act = nn.LeakyReLU(0.2)
     # CNN layer
-    self.bn1 = nn.BatchNorm2d(3)
+    self.bn1 = nn.BatchNorm2d(1)
     self.conv1 = nn.Conv2d(3, 3, kernel_size=(5,9), padding = (2,4), stride = 1,  bias=False)
     self.pool1 = nn.MaxPool2d(kernel_size=(5,9), padding = (2,4), stride = 2)
     
