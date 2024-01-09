@@ -1,7 +1,9 @@
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
+import matplotlib as plt
 from torch.utils.data import Dataset, DataLoader,TensorDataset,random_split,SubsetRandomSampler, ConcatDataset
 
 import os
@@ -11,7 +13,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, roc_curve, auc, Co
 class train:
     def __init(self,model,data,):
         self.model = model
-        delf.data = data 
+        self.data = data 
 
     def train_epoch(model, device, loss_fn, data, optimizer, performance, display = 0):
         train_loss = 0.0

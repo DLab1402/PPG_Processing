@@ -216,15 +216,13 @@ class vmdFea:
         #Spectrum
         col = np.round(np.max(findex)-np.min(findex)).astype(np.int64)+1
         row = np.round(np.max(time)-np.min(time)).astype(np.int64)+1
-        print(col)
-        print(row)
+        # print(col)
+        # print(row)
         H = sp.csr_matrix((inse, (findex, time)))
-        
         #Plot
-        sns.heatmap(H.toarray())
-        plt.show()
+        # sns.heatmap(H.toarray())
+        # plt.show()
 
-        return H
+        return H.toarray()
     
 #Test script
-    
