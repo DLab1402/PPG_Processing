@@ -11,6 +11,7 @@ from scipy.signal import hilbert
 import seaborn as sns
 import os
 import scipy.sparse as sp
+import json
 
 # -*- coding: utf-8 -*-
 
@@ -181,7 +182,7 @@ class vmdFea:
         pass
 
 
-    def sigle_process(self, sig, fstart, fend, ReS = 100, t_cut = 0.1, selec_method = "FreRange", normalize = "True" ):
+    def single_process(self, sig, fstart, fend, ReS = 100, t_cut = 0.1, selec_method = "FreRange", normalize = "True" ):
         #VMD
         u, u_hat, omega = VMD(sig, self.alpha, self.tau, self.K, self.DC, self.init, self.tol)
         if selec_method == "FreRange":
@@ -228,8 +229,7 @@ class vmdFea:
     def whole_pack_process(self, fstart, fend, Re = 100, t_c= 0.1, se_me = "FreRange", no = "True" ):
         H = []
         for sig in self.data:
-            tem = self.sigle_process(self, sig, fstart, fend, ReS = Re, t_cut = t_c, selec_method = se_me, normalize = no )
+            tem = self.single_process(sig, fstart, fend, ReS = Re, t_cut = t_c, selec_method = se_me, normalize = no )
             H.append(tem)
         
-        return H.toarray()
-#Test script
+        return H
