@@ -225,4 +225,11 @@ class vmdFea:
 
         return H.toarray()
     
+    def whole_pack_process(self, fstart, fend, Re = 100, t_c= 0.1, se_me = "FreRange", no = "True" ):
+        H = []
+        for sig in self.data:
+            tem = self.sigle_process(self, sig, fstart, fend, ReS = Re, t_cut = t_c, selec_method = se_me, normalize = no )
+            H.append(tem)
+        
+        return H.toarray()
 #Test script
