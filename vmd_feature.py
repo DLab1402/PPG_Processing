@@ -5,13 +5,15 @@ Created on Wed Feb 20 19:50:28 2019
 This code using VMD library of Vinícius Rezende Carvalho serves a API class to deploy into specific purpose 
 """
 #from __future__ import division# if python 2
+import os
+import math
+import json
 import numpy as np
+import seaborn as sns
+from PIL import Image
+import scipy.sparse as sp
 import matplotlib.pyplot as plt
 from scipy.signal import hilbert
-import seaborn as sns
-import os
-import scipy.sparse as sp
-import json
 
 # -*- coding: utf-8 -*-
 
@@ -192,10 +194,11 @@ class vmdFea:
         else:
             pass
         L = len(sig)
-
-        start = np.round(L*t_cut).astype(np.int64)
-        end = np.round(L*(1-t_cut)).astype(np.int64)
-        seg = range(end-start+1)
+        s = math.ceil(L*t_cut)
+        e = math.ceil(L*(1-t_cut))
+        start = np.round(s).astype(np.int64)
+        end = np.round(e).astype(np.int64)
+        seg = range(end-start)
         z = hilbert(u)
         inse = np.abs(z)
         insp = np.unwrap(np.angle(z))
@@ -226,10 +229,18 @@ class vmdFea:
 
         return H.toarray()
     
-    def whole_pack_process(self, fstart, fend, Re = 100, t_c= 0.1, se_me = "FreRange", no = "True" ):
-        H = []
-        for sig in self.data:
-            tem = self.single_process(sig, fstart, fend, ReS = Re, t_cut = t_c, selec_method = se_me, normalize = no )
-            H.append(tem)
-        
-        return H
+    def whole_pack_process(self, fstart, fend, Re = 100, t_c= 0.1, se_me = "FreRange", no = "True", file_path = None, width = 512, height = 128 ):
+        if file_path == None:
+            H = []
+            for sig in self.data:
+                tem = self.single_process(sig, fstart, fend, ReS = Re, t_cut = t_c, selec_method = se_me, normalize = no )
+                H.append(tem)
+            return H
+        else:
+            for index,sig in enumerate(self.data):
+                tem = self.single_process(sig, fstart, fend, ReS = Re, t_cut = t_c, selec_method = se_me, normalize = no )
+                normalized_image = (tem - np.min(tem)) * (255.0 / (np.max(tem) - np.min(tem)))
+                image = Image.fromarray(normalized_image.astype('uint8'))
+                image = image.resize((width, height))
+                image.save(file_path+"/"+str(index)+".png")
+                print(file_path+"/"+str(index)+".png")
