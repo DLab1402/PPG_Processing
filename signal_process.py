@@ -92,8 +92,8 @@ class auto_process:
                 
 #Test script
 
-data = datLoDe("output_file.json").throwDatPack()
-data = np.array(data)
-x = auto_process(data[0][0:420],60)
-p = x.auto_seg(100, pack = True, visualize = True)
-print(len(p))
+# data = datLoDe("output_file.json").throwDatPack()
+# data = np.array(data)
+# x = auto_process(data[0][0:420],60)
+# p = x.auto_seg(100, pack = True, visualize = True)
+# print(len(p))
