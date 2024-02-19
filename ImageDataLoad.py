@@ -25,17 +25,17 @@ class ImageDataset(torch.utils.data.Dataset):
                 if file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".png"):
                     path = os.path.join(subdir, file)
                     label = os.path.basename(file)
-                    self.imgs.append((path,np.array([1.,0.])))
-                    self.co_0 = self.co_0+1
-#                     if int(label[-5]) == 0:
-#                       self.imgs.append((path,np.array([1.,0.])))
-#                       self.co_0 = self.co_0+1
-#                     if int(label[-5]) == 1:
-#                       self.imgs.append((path,np.array([0.,1.])))
-#                       self.co_1 = self.co_1+1
-#                     if int(label[-5]) == 2:
-#                       self.imgs.append((path,np.array([0.,1.])))
-#                       self.co_2 = self.co_2+1
+                    # self.imgs.append((path,np.array([1.,0.])))
+                    # self.co_0 = self.co_0+1
+                    if int(label[-5]) == 0:
+                      self.imgs.append((path,np.array([1.,0.])))
+                      self.co_0 = self.co_0+1
+                    if int(label[-5]) == 1:
+                      self.imgs.append((path,np.array([0.,1.])))
+                      self.co_1 = self.co_1+1
+                    # if int(label[-5]) == 0:
+                    #   self.imgs.append((path,np.array([0.,1.])))
+                    #   self.co_2 = self.co_2+1
                     # if int(label[-5]) == 3:
                     #   self.imgs.append((path,np.array([0.,0.,1.])))    
     def __getitem__(self, index):

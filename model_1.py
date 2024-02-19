@@ -17,14 +17,19 @@ class Net(nn.Module):
     self.conv2 = nn.Conv2d(3, 1, kernel_size=(5,9), padding = (2,4), stride = 1,  bias=False)
     self.pool2 = nn.MaxPool2d(kernel_size=(5,9), padding = (2,4), stride = 1)
 
+    self.bn21 = nn.BatchNorm2d(1)
+    self.conv21 = nn.Conv2d(1, 1, kernel_size=(5,9), padding = (2,4), stride = 1,  bias=False)
+    self.pool21 = nn.MaxPool2d(kernel_size=(5,9), padding = (2,4), stride = 1)
+
     self.bn3 = nn.BatchNorm2d(1)
     self.conv3 = nn.Conv2d(1, 1, kernel_size=(5,9), padding = (2,4), stride = 1,  bias=False)
     self.pool3 = nn.MaxPool2d(kernel_size=(5,9), padding = (2,4), stride = 2)
 
     # LSTM layer
-    self.lstm = nn.LSTM(input_size= 32, hidden_size= 100, num_layers=3, batch_first=True)
+    self.lstm = nn.LSTM(input_size= 32, hidden_size= 100, num_layers=2, batch_first=True)
     self.fc5 = nn.Linear(100,2)
     self.sm = nn.Softmax(dim = -1)
+
   def forward(self, input):
     x = self.act(self.conv1(input))
     x = self.pool1(x)
@@ -33,6 +38,10 @@ class Net(nn.Module):
     x = self.act(self.conv2(x))
     x = self.pool2(x)
 #     print(x.shape)
+    
+#     x = self.act(self.conv21(x))
+#     x = self.pool21(x)
+# #     print(x.shape)
 
     x = self.act(self.conv3(x))
     x = self.pool3(x)

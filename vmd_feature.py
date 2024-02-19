@@ -216,10 +216,9 @@ class vmdFea:
         #quantize
         step = (fend-fstart)/ReS
         findex = np.round(((insf - fstart)/step),0).astype(np.int64)
-        
         #Spectrum
-        col = np.round(np.max(findex)-np.min(findex)).astype(np.int64)+1
-        row = np.round(np.max(time)-np.min(time)).astype(np.int64)+1
+        # col = np.round(np.max(findex)-np.min(findex)).astype(np.int64)+1
+        # row = np.round(np.max(time)-np.min(time)).astype(np.int64)+1
         # print(col)
         # print(row)
         H = sp.csr_matrix((inse, (findex, time)))
